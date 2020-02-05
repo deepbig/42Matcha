@@ -1,0 +1,85 @@
+import React from 'react';
+
+import { useDispatch } from 'react-redux';
+import { ui_landing } from '../../../../actions';
+
+import axios from 'axios';
+
+import Alert from '../../../util/alert';
+
+import '../index.css';
+
+const Up = () => {
+    const dispatch = useDispatch();
+
+    const _handleForm = (e) => {
+        e.prementDefault();
+
+        const data = {
+            email: document.signup.email.value,
+            password: document.signup.password.value
+        };
+
+        if(_handlePasswordCheck() === 0) {
+            axios.post('/auth/up', data)
+            .then(res => {
+                if(res.data) {
+                    console.log('signup success');
+                    dispatch(ui_landing(0));
+                } else {
+                    Alert(0, 'Your email is already registered', 'Okay', null, null);
+                }
+            });
+        } else {
+            Alert(0, 'Password is not valid', 'Okay', null, null);
+        }
+    }
+
+    const _handlePasswordCheck = () => {
+        const password = document.signup.password.value;
+        const confirm = document.signup.confirm.value;
+
+        const pattern1 = /[0-9]/;
+        const pattern2 = /[a-zA-Z]/;
+        const pattern3 = /[~!@#$%<>^&*]/;
+
+        let error = 0;
+
+        if(!(password.length >= 8 && password.length <= 20)) {
+            error++;
+        }
+
+        if(!pattern1.test(password) || !pattern2.test(password) || !pattern3.test(password)) {
+            error++;
+        }
+
+        if(password === '' || password !== confirm) {
+            error++; 
+        }
+
+        return error;
+    }
+
+    return (
+        <form name='signup' onSubmit={_handleForm}>
+            <div className='landing-in-title'>Sign up :></div>
+            <div className='landing-in-description'>Please fill in this form to register</div>
+            <label className='landing-in-label'>
+                <span>Email</span>
+                <input className='landing-in-input' type='email' name='email' required />
+            </label>
+            <label className='landing-in-label'>
+                <span>Password</span>
+                <input className='landing-in-input' type='password' name='password' required />
+            </label>
+            <label className='landing-in-label'>
+                <span>Confirm Password</span>
+                <input className='landing-in-input' type='password' name='confirm' required />
+            </label>
+            <input className='landing-in-submit' type='submit' value='SUBMIT' />
+            <input className='landing-in-button' type='button' value='BACK' onClick={ () => dispatch(ui_landing(1)) } />
+        </form>
+    );
+}
+
+export default Up;
