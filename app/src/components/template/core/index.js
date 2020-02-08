@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ui_nav, detail_data, chat_current, notification_count } from '../../../actions';
 
 import io from 'socket.io-client';
-// import { SOKET_URL } from '../../../api';
+import { SOKET_URL } from '../../../api';
 
 import Tag_P from '../../util/pull/tag';
 import Chat_P from '../../util/pull/chat';
