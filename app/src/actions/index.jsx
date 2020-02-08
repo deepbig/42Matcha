@@ -129,19 +129,19 @@ export const match_data = (value) => {
 
 /***************************************************/
 
-export const map_center = (value) => {
-    return {
-        type: 'MAP_CENTER',
-        payload: value
-    };
-};
+// export const map_center = (value) => {
+//     return {
+//         type: 'MAP_CENTER',
+//         payload: value
+//     };
+// };
 
-export const map_address = (value) => {
-    return {
-        type: 'MAP_ADDRESS',
-        payload: value
-    };
-};
+// export const map_address = (value) => {
+//     return {
+//         type: 'MAP_ADDRESS',
+//         payload: value
+//     };
+// };
 
 /***************************************************/
 
