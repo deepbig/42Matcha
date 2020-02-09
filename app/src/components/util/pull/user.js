@@ -6,8 +6,8 @@ const User = (dispatch) => {
     const data = {
         userId: -1,
     }
-
-    axios.get('/users', {params: data})
+    
+    axios.get('/users', { params : data })
     .then((res) => {
         if(res.data.length !== 0 && res.data !== -1) {
             dispatch(user_data(res.data[0]));
