@@ -69,7 +69,7 @@ const In = () => {
                 <span>Password</span>
                 <input className='landing-in-input' type='password' name='password' required />
             </label>
-            <input className='landing-in-sumbit' type='submit' value='SUBMIT' />
+            <input className='landing-in-submit' type='submit' value='SUBMIT' />
             <input className='landing-in-button' type='button' value='SIGNUP' onClick={ () => dispatch(ui_landing(2)) } />
             <input className='landing-in-button' type='button' value='FORGOT PASSWORD' onClick={ () => dispatch(ui_landing(3)) } />
         </form>

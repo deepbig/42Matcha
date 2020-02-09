@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ui_nav, detail_data, chat_current, notification_count } from '../../../actions';
 
 import io from 'socket.io-client';
-import { SOKET_URL } from '../../../api';
+import { SOCKET_URL } from '../../../api';
 
 import Tag_P from '../../util/pull/tag';
 import Chat_P from '../../util/pull/chat';
@@ -51,6 +51,7 @@ const Core = () => {
     }, [dispatch, user.data.id]);
 
     useEffect(() => {
+        //io() defaults to connect to the host that serves the page.
         socket = io(SOCKET_URL);
 
         socket.emit('join', user.data.id, () => {
