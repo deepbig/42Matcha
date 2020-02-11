@@ -2,7 +2,7 @@
   "name": "matcha",
   "version": "0.0.1",
   "private": true,
-  "proxy": "https://localhost:8443/api",
+  "proxy": "http://localhost:8000/api",
   "dependencies": {
     "@nivo/line": "^0.61.1",
     "axios": "^0.19.2",
