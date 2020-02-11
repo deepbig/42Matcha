@@ -1,12 +1,27 @@
+const express = require('express');
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const http = require('http');
+// const https = require('https');
+const socketio = require('soket.io');
+// const fs = require('fs');
+// const privateKey  = fs.readFileSync('cert/key.pem', 'utf8');
+// const certificate = fs.readFileSync('cert/matcha.pem', 'utf8');
+// const credentials = {key: privateKey, cert: certificate};
 var createError = require('http-errors');
-var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var usersRouter = require('./routes/users');
 
+//Start from here
 var app = express();
+
+var server = http.createServer(app);
+
+const io = socketio(server);
 
 app.use(logger('dev'));
 app.use(express.json());
