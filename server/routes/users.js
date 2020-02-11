@@ -9,7 +9,7 @@ const conn = require('../config/db');
 //
 
 module.exports.select = (req, res) => {
-    if (req.session.userId !== -1) {
+    if (req.session.userId !== undefined && req.session.userId !== -1) {
         const userId = parseInt(req.query.userId) === -1 ? req.session.userId : parseInt(req.query.userId);
         const user_Id = req.session.userId;
         const position = req.query;

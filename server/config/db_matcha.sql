@@ -44,11 +44,14 @@ CREATE TABLE `users` (
 CREATE TABLE `verifies` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint unsigned NOT NULL,
+  `user_email` varchar(255) NOT NULL DEFAULT '',
   `uuid` varchar(255) NOT NULL DEFAULT '',
   `time` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `verify_user_id`(`user_id`),
-  CONSTRAINT `verify_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+  KEY `verify_user_email`(`user_email`),
+  CONSTRAINT `verify_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `verify_user_email` FOREIGN KEY (`user_email`) REFERENCES `users` (`email`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `logs` (

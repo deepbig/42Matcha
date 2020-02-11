@@ -40,7 +40,7 @@ const In = () => {
 
     const _handleResendVerifyingEmail = () => {
         const data = {
-            email: document.siginin.email.value
+            email: document.signin.email.value
         };
 
         axios.get('/mail/reverify', {
@@ -56,7 +56,7 @@ const In = () => {
     }
 
     return (
-        <form name='siginin' onSubmit={_handleForm}>
+        <form name='signin' onSubmit={_handleForm}>
             <div className='landing-in-title'>Welcom to M@TCH@!</div>
             <div className='landing-in-description'>
                 Are you ready to start?

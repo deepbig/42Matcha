@@ -50,7 +50,7 @@ module.exports.forgot = (req, res) => {
 //
 
 module.exports.reverify = (req, res) => {
-    const sql = 'SELECT uuid FROM verifies WHERE user_id = ?';
+    const sql = 'SELECT uuid FROM verifies WHERE email = ?';
 
     const email = req.query.email;
 
