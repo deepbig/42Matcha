@@ -50,7 +50,7 @@ module.exports.forgot = (req, res) => {
 //
 
 module.exports.reverify = (req, res) => {
-    const sql = 'SELECT uuid FROM verifies WHERE email = ?';
+    const sql = 'SELECT uuid FROM verifies WHERE user_email = ?';
 
     const email = req.query.email;
 
@@ -58,8 +58,7 @@ module.exports.reverify = (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            results = JSON.parse(JSON.stringify(results));
-
+            results = JSON.parse(JSON.stringify(results[0]));
             const transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
@@ -71,7 +70,7 @@ module.exports.reverify = (req, res) => {
                 from: process.env.EMAIL_ADDRESS,
                 to: email,
                 subject: 'Please confirm for Matcha registration :)',
-                html: "<a href=" + process.env.VERIFY_URL + "/api/verifies/up?email=" + email + "&code=" + results.uuid + ">Click here to verify !</a>"
+                html: "<a href=" + process.env.ORIGIN_URL + "/verifies/up/" + email + "/" + results.uuid + ">Click here to verify !</a>"
             };
             transporter.sendMail(mailOptions, function(error, info){
                 if (error) {

@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { ui_color } from '../../actions';
 
@@ -9,6 +11,7 @@ import cookie from 'react-cookies';
 
 import Core from '../template/core';
 import Landing from '../template/landing';
+import Confirm from '../template/landing/confirm';
 
 import Wrapper from 'react-div-100vh';
 
@@ -30,8 +33,20 @@ const App = () => {
 		dispatch(ui_color(getColor));
 	}
 
+	const content = () => {
+		return (
+			<BrowserRouter>
+				<Switch>
+					<Route exact path="/verifies/up/:email/:uuid" component={Confirm} />
+					<Redirect from='*' to='/' />
+				</Switch>
+			</BrowserRouter>
+		)
+	}
+
 	return (
 		<Wrapper className='app no-drag'>
+			{content()}
 			<style>{`
 				:root {
 					--color-100: ${ui.color + 'ff'};

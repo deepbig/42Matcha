@@ -6,7 +6,7 @@ const conn = require('../config/db');
 module.exports.up = (req, res) => {
     const sql_select_user = 'SELECT * FROM users WHERE email = ?';
     const sql_insert_users = 'INSERT INTO users (email, password) values (?, SHA1(?))';
-    const sql_insert_verifies = 'INSERT INTO verifies (user_id, uuid) values ((SELECT id FROM users WHERE email = ?), ?)';
+    const sql_insert_verifies = 'INSERT INTO verifies (user_id, user_email, uuid) values ((SELECT id FROM users WHERE email = ?), ?, ?)';
 
     const data = req.body;
     const code = uuid();
@@ -26,7 +26,8 @@ module.exports.up = (req, res) => {
                 from: process.env.EMAIL_ADDRESS,
                 to: data.email,
                 subject: 'Please confirm for Matcha registration :)',
-                html: "<a href=\"" + process.env.VERIFY_URL + "/api/verifies/up?email=" + data.email + "&code=" + code + "\">Click here to verify !</a>"
+                
+                html: "<a href=\"" + process.env.ORIGIN_URL + "/verifies/up/" + data.email + "/" + code + "\">Click here to verify !</a>"
             };
             transporter.sendMail(mailOptions, function(error, info){
                 if (error) {
@@ -38,7 +39,7 @@ module.exports.up = (req, res) => {
                 if (err) {
                     console.log(err);
                 } else {
-                    conn.query(sql_insert_verifies, [data.email, code], (err) => {
+                    conn.query(sql_insert_verifies, [data.email, data.email, code], (err) => {
                         if (err) {
                             console.log(err);
                         }

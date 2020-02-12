@@ -57,6 +57,7 @@ CREATE TABLE `verifies` (
 CREATE TABLE `logs` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint unsigned NOT NULL,
+  `info` varchar(255) NOT NULL,
   `time` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `log_user_id`(`user_id`),

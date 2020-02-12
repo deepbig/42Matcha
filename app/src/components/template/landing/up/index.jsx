@@ -24,7 +24,7 @@ const Up = () => {
 			axios.post('/auth/up', data)
 			.then(res => {
 				if(res.data) {
-					console.log('signup success');
+					Alert(0, 'Thank you for signing up! Please check your email for verification :>', 'Okay', null, null);
 					dispatch(ui_landing(0));
 				} else {
 					Alert(0, 'email is duplicated', 'Okay', null, null);
