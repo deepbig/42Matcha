@@ -57,7 +57,7 @@ module.exports.reverify = (req, res) => {
     conn.query(sql, [email], (err, results) => {
         if (err) {
             console.log(err);
-        } else {
+        } else if (results) {
             results = JSON.parse(JSON.stringify(results[0]));
             const transporter = nodemailer.createTransport({
                 service: 'gmail',
@@ -75,8 +75,12 @@ module.exports.reverify = (req, res) => {
             transporter.sendMail(mailOptions, function(error, info){
                 if (error) {
                     console.log(error);
+                } else {
+                    res.json(1);
                 }
             });
+        } else {
+            res.json(0);
         }
     })
 }

@@ -23,7 +23,10 @@ module.exports.up = (req, res) => {
                 if (err) {
                     console.log(err);
                 }
+                res.json(1);
             })
+        } else {
+            res.json(0);
         }
     })
 }

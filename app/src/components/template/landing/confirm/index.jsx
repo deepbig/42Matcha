@@ -17,8 +17,12 @@ const Confirm = () => {
 
         axios.get('/verifies/up', { params: data })
         .then((res) => {
-            console.log('why');
-            Alert(0, 'Your email is verified! Thank you! :>', 'Okay', null, null);
+            console.log('verification process');
+            if (res.data === 0) {
+                Alert(0, 'Verification failed! Please try again later ;(', 'Okay', null, null);
+            } else {
+                Alert(0, 'Your email is verified! Thank you! :>', 'Okay', null, null);
+            }
         })
         .catch(err => console.log(err))
     }

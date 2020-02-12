@@ -47,7 +47,7 @@ const In = () => {
             params: data
         })
         .then(res => {
-            if(res.data) {
+            if(res.data === 1) {
                 Alert(0, 'Email sent! Check your mailbox :>', 'Okay', null, null);
             } else {
                 Alert(0, 'Email is not vaild', 'Okay', null, null);
