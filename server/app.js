@@ -64,6 +64,8 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended : true }));
 // app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.set('views', __dirname + '/public/views');
+
 app.use(cors({ origin: process.env.ORIGIN_URL }))
 
 app.get('/', (req, res) => {
@@ -233,9 +235,9 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
+  // send the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.sendFile(__dirname + '/public/error.html');
 });
 
 const PORT = process.env.PORT || '8000';

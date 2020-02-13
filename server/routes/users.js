@@ -49,6 +49,7 @@ module.exports.select = (req, res) => {
             })
         }
     } else {
+        console.log("session not yet created");
         res.json(-1);
     }
 }
@@ -186,52 +187,86 @@ module.exports.updatePassword = (req, res) => {
 
 module.exports.updatePicture = (req, res) => {
     if (req.session.userId !== -1) {
+        const delete_sql = 'SELECT picture' + req.body.index + ' FROM users WHERE id = ?';
         const sql = 'UPDATE users SET picture' + req.body.index + ' = ? WHERE id = ?';
 
         const userId = req.session.userId;
         let picture = req.body.picture;
+        const picture_num = 'picture' + req.body.index;
 
-        if(picture !== '') {
-            let extension = '';
-            if(picture.match(/data:image\/jpeg;base64,/)) {
-                extension = '.jpeg';
-            } else if(picture.match(/data:image\/jpg;base64,/)) {
-                extension = '.jpg';
-            } else if(picture.match(/data:image\/png;base64,/)) {
-                extension = '.png';
-            }
+        conn.query(delete_sql, [userId], (err, results) => {
+            if (err) {
+                console.log(err);
+                console.log("here is the error for deleting images");
+                res.json(-1);
+            } else if (results) {
+                results = JSON.parse(JSON.stringify(results[0]));
+                let value = results.picture1;
+                if (value === undefined) {
+                    value = results.picture2;
+                    if (value === undefined) {
+                        value = results.picture3;
+                        if (value === undefined) {
+                            results.picture4;
+                            if(value === undefined) {
+                                results.picture5;
+                            }
+                        }
+                    }
+                }
+                console.log(value);
+                if (value !== '' && value !== 'default.png') {
+                    fs.unlink(imagePath + value, (err) => {
+                        if (err) throw err;
+                        console.log('path/file.txt was deleted');
+                      });
 
-            picture = picture.replace('data:image/jpeg;base64,', '')
-                            .replace('data:image/jpg;base64,', '')
-                            .replace('data:image/png;base64,', '');
-
-            const code = uuid();
-
-            if (userId === -1) {
-                res.json(0);
-            } else {
-                fs.writeFileSync(imagePath + code + extension, picture, {encoding: 'base64'}, function(err) {
-                    console.log('File created');
-                });
-                conn.query(sql, [code + extension, userId], (err) => {
-                    if (err) {
-                        console.log(err);
+                }
+                // Updating picture here.
+                if(picture !== '') {
+                    let extension = '';
+                    if(picture.match(/data:image\/jpeg;base64,/)) {
+                        extension = '.jpeg';
+                    } else if(picture.match(/data:image\/jpg;base64,/)) {
+                        extension = '.jpg';
+                    } else if(picture.match(/data:image\/png;base64,/)) {
+                        extension = '.png';
+                    }
+        
+                    picture = picture.replace('data:image/jpeg;base64,', '')
+                                    .replace('data:image/jpg;base64,', '')
+                                    .replace('data:image/png;base64,', '');
+        
+                    const code = uuid();
+        
+                    if (userId === -1) {
                         res.json(0);
                     } else {
-                        res.json(code + extension);
+                        fs.writeFileSync(imagePath + code + extension, picture, {encoding: 'base64'}, function(err) {
+                            console.log('File created');
+                        });
+                        conn.query(sql, [code + extension, userId], (err) => {
+                            if (err) {
+                                console.log(err);
+                                res.json(0);
+                            } else {
+                                res.json(code + extension);
+                            }
+                        })
                     }
-                })
-            }
-        } else {
-            conn.query(sql, ['', userId], (err) => {
-                if (err) {
-                    console.log(err);
-                    res.json(0);
                 } else {
-                    res.json('');
+                    conn.query(sql, ['', userId], (err) => {
+                        if (err) {
+                            console.log(err);
+                            res.json(0);
+                        } else {
+                            res.json('');
+                        }
+                    })
                 }
-            })
-        }
+            }
+        });
+        
     } else {
         res.json(-1);
     }
