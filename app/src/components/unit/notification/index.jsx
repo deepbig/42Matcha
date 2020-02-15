@@ -17,7 +17,7 @@ const Notification = () => {
 
     useEffect(() => {
         return () => {
-            axios.put('/notification')
+            axios.put('/notifications')
             .then((res) => {
                 if(res.data === -1) {
 					Alert(0, 'Session is invalid. Please signin again.', 'Okay', null, null);

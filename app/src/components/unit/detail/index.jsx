@@ -20,7 +20,7 @@ import './index.css';
 
 const Detail = () => {
     const user = useSelector(state => state.user);
-    const detail = useSelector(state => state.detail);
+	const detail = useSelector(state => state.detail);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -75,8 +75,10 @@ const Detail = () => {
                 Alert(0, 'Session is invalid. Please sign in again :>', 'Okay', null, null);
                 Logout_P(dispatch);
             } else {
-                Chat_P(dispatch);
-                Detail_P(dispatch, detail.data.id, user.data.latitude, user.data.longitude);
+				Alert(0, 'Successfully blocked this person :>', 'Okay', null, null);
+				
+				Chat_P(dispatch);
+				Detail_P(dispatch, detail.data.id, user.data.latitude, user.data.longitude);
             }
         });
     }
@@ -90,6 +92,8 @@ const Detail = () => {
 			if(res.data === -1) {
 				Alert(0, 'Session is invalid. Please sign in again :>', 'Okay', null, null);
 				Logout_P(dispatch);
+			} else {
+				Alert(0, 'Successfully reported this person :/', 'Okay', null, null);
 			}
 		});
     }

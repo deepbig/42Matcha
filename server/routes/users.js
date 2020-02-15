@@ -214,8 +214,7 @@ module.exports.updatePicture = (req, res) => {
                         }
                     }
                 }
-                console.log(value);
-                if (value !== '' && value !== 'default.png') {
+                if (value !== undefined && value !== '' && value !== 'default.png') {
                     fs.unlink(imagePath + value, (err) => {
                         if (err) throw err;
                         console.log('path/file.txt was deleted');

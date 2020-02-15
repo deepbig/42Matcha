@@ -24,6 +24,17 @@ const Alert = (type, message, submit, request, func) => {
             ]
         });
     }
+    else if(type === 2) {
+        confirmAlert({
+            message: message,
+            buttons: [
+                {
+                    label: submit,
+                    onClick: func
+                }
+            ]
+        });
+    }
 }
 
 export default Alert;

@@ -66,7 +66,7 @@ const Myself = () => {
 		const result = [...user.tag1];
 
 		for(let i = 0; i < result.length; i++) {
-			if(value === result[i].tag) {
+			if(value.toUpperCase() === result[i].tag.toUpperCase()) {
 				return false;
 			}
 		}

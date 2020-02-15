@@ -15,6 +15,7 @@ const Suggest = (dispatch, type) => {
 			axios.get('/tags', { params : data })
 			.then((res) => {
 				if(res.data === -1) {
+					console.log("tag error");
 					Logout_P();
 				} else {
 					dispatch(user_suggest1(res.data));
