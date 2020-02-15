@@ -25,7 +25,7 @@ CREATE TABLE `users` (
   `preference_gender` tinyint(1) DEFAULT '0',
   `preference_min_age` tinyint(255) unsigned DEFAULT '0',
   `preference_max_age` tinyint(255) unsigned DEFAULT '254',
-  `preference_max_distance` int DEFAULT '-1',
+  `preference_max_distance` int DEFAULT '',
   `address` varchar(255),
   `latitude` float,
   `longitude` float,
@@ -37,6 +37,7 @@ CREATE TABLE `users` (
   `picture5` varchar(255) DEFAULT '',
   `notification` tinyint(1) DEFAULT '1',
   `verify` tinyint(1) DEFAULT '0',
+  `oauth` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
@@ -152,7 +153,7 @@ CREATE TABLE `reports` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `from` bigint unsigned NOT NULL,
   `to` bigint unsigned NOT NULL,
-  `reason` text NOT NULL,
+  `reason` text,
   `time` datetime DEFAULT CURRENT_TIMESTAMP,
   `checked` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),

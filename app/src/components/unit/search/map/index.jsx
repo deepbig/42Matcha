@@ -37,7 +37,6 @@ const Map = (props) => {
 	}, [user, dispatch]);
 
 	const _handleDetail = (id) => {
-		console.log(id);
 		Detail_P(dispatch, id, user.data.latitude, user.data.longitude);
 	}
 

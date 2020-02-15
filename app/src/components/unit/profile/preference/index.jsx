@@ -66,7 +66,7 @@ const Preference = () => {
 		const result = [...user.tag2];
 
 		for(let i = 0; i < result.length; i++) {
-			if(value === result[i].tag) {
+			if(value.toUpperCase() === result[i].tag.toUpperCase()) {
 				return false;
 			}
 		}

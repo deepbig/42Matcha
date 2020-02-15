@@ -15,23 +15,23 @@ const userReducer = (state = user, action) => {
             });
         case 'USER_TAG1':
             return Object.assign({}, state, {
-                tag1: action.paylaod
+                tag1: action.payload
             });
         case 'USER_TAG2':
             return Object.assign({}, state, {
-                tag2: action.paylaod
+                tag2: action.payload
             });
         case 'USER_SUGGEST1':
             return Object.assign({}, state, {
-                suggest1: action.paylaod
+                suggest1: action.payload
             });
         case 'USER_SUGGEST2':
             return Object.assign({}, state, {
-                suggest2: action.paylaod
+                suggest2: action.payload
             });
         case 'USER_ISCOMPLETE':
             return Object.assign({}, state, {
-                isComplete: action.paylaod
+                isComplete: action.payload
             });
         default:
             return state;

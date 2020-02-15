@@ -23,7 +23,6 @@ const Location = () => {
 		if(zipcode.length === 5) {
 			axios.get('https://maps.googleapis.com/maps/api/geocode/json?language=en&address=' + zipcode + '&key=' + GMAP_KEY)
 			.then((res) => {
-				console.log(res.data);
 				if(res.data.status === 'ZERO_RESULTS' || res.data.results[0].formatted_address === undefined) {
 					Alert(0, 'zipcode is invalid', 'Okay', null, null);
 					document.profile_location.zipcode.value = '';
@@ -63,7 +62,6 @@ const Location = () => {
 		navigator.geolocation.getCurrentPosition((position) => {
 			axios.get('https://maps.googleapis.com/maps/api/geocode/json?language=en&latlng=' + position.coords.latitude + ',' + position.coords.longitude + '&key=' + GMAP_KEY)
 			.then((res) => {
-				console.log(res.data);
 				let result = res.data.plus_code.compound_code.split(' ');
 				let address = '';
 				for(let i = 1; i < result.length; i++) {

@@ -31,7 +31,7 @@ const Chatlist = () => {
                     {
                         chat.list.length !== 0 ? chat.list.map((chat, index) => 
                             <div className='chatlist-container' key={index} style={{
-                                backgroundImage: `url('${IMAGE_URL} ${chat.picture1}')`
+                                backgroundImage: `url('${IMAGE_URL}${chat.picture1}')`
                             }} onClick={() => _handleChat(index)}>
                                 <div className='chatlist-name'>{chat.first_name} {chat.last_name}</div>
                                 {chat.count !== 0 ? <div className='chatlist-icon'>N</div> : null}
