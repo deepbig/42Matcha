@@ -103,7 +103,7 @@ const Myself = () => {
 			<div className='profile-description'>Description page.</div>
 			<div className='profile-section'>
 				<div className='profile-tag-box'>
-					{user.tag1.length !== 0 ? user.tag1.map((tag, index) => (
+					{user.tag1 !== undefined && user.tag1.length !== 0 ? user.tag1.map((tag, index) => (
 						<Tag key={index} tag={tag} index={index} _handleDeleteTag={_handleDeleteTag} />
 					)) : 'There is no tag yet! Please add tag!'}
 				</div>
@@ -112,9 +112,10 @@ const Myself = () => {
 						<input type='text' className='profile-input' name='tag' placeholder='Tag' onChange={() => _handleSuggest()} />
 					</label>
 					<div className='profile-suggest-box'>
-						{user.suggest1.map((suggest, index) => (
+						{user.suggest1 !== undefined ? user.suggest1.map((suggest, index) => (
 							<Suggest key={index} suggest={suggest} index={index} _handleAddTagFromSuggest={_handleAddTagFromSuggest} />
-						))}
+						))
+						: null }
 					</div>
 					<input type='submit' className='profile-submit' value='ADD'/>
 				</form>

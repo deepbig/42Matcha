@@ -23,7 +23,8 @@ const Location = () => {
 		if(zipcode.length === 5) {
 			axios.get('https://maps.googleapis.com/maps/api/geocode/json?language=en&address=' + zipcode + '&key=' + GMAP_KEY)
 			.then((res) => {
-				if(res.data.status === 'ZERO_RESULTS') {
+				console.log(res.data);
+				if(res.data.status === 'ZERO_RESULTS' || res.data.results[0].formatted_address === undefined) {
 					Alert(0, 'zipcode is invalid', 'Okay', null, null);
 					document.profile_location.zipcode.value = '';
 				} else {
@@ -52,6 +53,9 @@ const Location = () => {
 					});
 				}
 			});
+		} else {
+			Alert(0, 'zipcode is invalid', 'Okay', null, null);
+			document.profile_location.zipcode.value = '';
 		}
 	}
 
@@ -59,6 +63,7 @@ const Location = () => {
 		navigator.geolocation.getCurrentPosition((position) => {
 			axios.get('https://maps.googleapis.com/maps/api/geocode/json?language=en&latlng=' + position.coords.latitude + ',' + position.coords.longitude + '&key=' + GMAP_KEY)
 			.then((res) => {
+				console.log(res.data);
 				let result = res.data.plus_code.compound_code.split(' ');
 				let address = '';
 				for(let i = 1; i < result.length; i++) {
@@ -75,6 +80,7 @@ const Location = () => {
 				.then(res => {
 					if(res.data) {
 						Alert(0, 'User information has been updated!', 'Okay', null, null);
+						document.profile_location.zipcode.value = '';
 						User_P(dispatch);
 					} else {
 						Alert(0, 'Session is invalid. Please signin again.', 'Okay', null, null);
@@ -88,7 +94,7 @@ const Location = () => {
 	return (
 		<div className='profile-container'>
 			<div className='profile-title'>Location</div>
-			<div className='profile-description'>Sometimes it is better to just walk away from things and go back to them later when you’re in a better frame of mind.</div>
+			<div className='profile-description'>Share your nearest location for matching! :)</div>
 			<div className='profile-section'>
 				<form name='profile_location' onSubmit={_handleForm}>
 					<label className='profile-input-label'>
